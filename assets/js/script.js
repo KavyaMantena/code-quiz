@@ -1,74 +1,110 @@
 
 let startButton = document.getElementById("start-quiz-btn");
-
-
+let score = 0;
+let highScores = [];
 
 
 function startQuiz() {
   removeLanding();
   questionOne();
+  countdown();
 };
 
+let timerEL = document.getElementById("countdown")
+function countdown() {
+  var timeLeft = 100
+
+  var timeInterval = setInterval(function () {
+    if (timeLeft > 1) {
+      timerEL.textContent = timeLeft + ' seconds';
+
+      timeLeft--;
+
+    } else if (timeLeft === 1) {
+      timerEL.textContent = timeLeft + ' seconds';
+      timeLeft--;
+    } else {
+      timerEL.textContent = '';
+      clearInterval(timerInterval);
+    }
+  }, 1000);
+}
+
+
 function removeLanding() {
-  let landingEl = document.querySelector(".container");
-  landingEl.remove();
+  let landingPage = document.querySelector(".container");
+  landingPage.setAttribute("class", "hide-landing-page");
 }
 
 function questionOne() {
   let divEl = document.createElement("div");
   divEl.setAttribute("id", "question-one");
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "headingquestion-1")
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "Commonly used data types DO NOT include:";
   divEl.appendChild(h1El);
+  let optionsContainerEl = document.createElement("div");
+  optionsContainerEl.setAttribute("id", "buttonlist-1");
   let btn1 = document.createElement("button");
   btn1.textContent = "1. strings";
-  btn1.setAttribute("class", "firstbtn1")
+  btn1.setAttribute("class", "optionbutton")
   let btn2 = document.createElement("button");
   btn2.textContent = "2. booleans";
-  btn2.setAttribute("class", "firstbtn2")
+  btn2.setAttribute("class", "optionbutton")
   let btn3 = document.createElement("button");
   btn3.textContent = "3. alerts";
-  btn3.setAttribute("class", "firstbtn3")
+  btn3.setAttribute("class", "optionbutton")
   let btn4 = document.createElement("button");
   btn4.textContent = "4. numbers";
-  btn4.setAttribute("class", "firstbtn4")
-  divEl.appendChild(btn1);
-  divEl.appendChild(btn2);
-  divEl.appendChild(btn3);
-  divEl.appendChild(btn4)
+  btn4.setAttribute("class", "optionbutton")
+  optionsContainerEl.appendChild(btn1);
+  optionsContainerEl.appendChild(btn2);
+  optionsContainerEl.appendChild(btn3);
+  optionsContainerEl.appendChild(btn4);
+  divEl.appendChild(optionsContainerEl);
   let firstQuestion = document.querySelector("#question-container");
   firstQuestion.appendChild(divEl);
-  btn1.addEventListener('click', questionTwo);
-  btn2.addEventListener('click', questionTwo);
-  btn3.addEventListener('click', questionTwo);
-  btn4.addEventListener('click', questionTwo);
+  btn1.addEventListener('click', questionOneOptionsClick);
+  btn2.addEventListener('click', questionOneOptionsClick);
+  btn3.addEventListener('click', questionOneOptionsClick);
+  btn4.addEventListener('click', questionOneOptionsClick);
 
+}
+function questionOneOptionsClick(event) {
+  console.log(event.target.textContent);
+  if (event.target.textContent === "3. alerts") {
+    score++;
+  }
+
+  questionTwo()
 }
 
 function questionTwo() {
   let divEl = document.createElement("div");
   divEl.setAttribute("id", "question-two")
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "headingquestion-2");
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "The condition in an if/else statement is enclosed with______.";
   divEl.appendChild(h1El);
+  let optionsContainerEl = document.createElement("div");
+  optionsContainerEl.setAttribute("id", "buttonlist-1");
   let btn1 = document.createElement("button");
   btn1.textContent = "1. quotes";
-  btn1.setAttribute("id", "secondbtn1")
+  btn1.setAttribute("class", "optionbutton")
   let btn2 = document.createElement("button");
   btn2.textContent = "2. curly brackets";
-  btn2.setAttribute("id", "secondbtn2")
+  btn2.setAttribute("class", "optionbutton")
   let btn3 = document.createElement("button");
   btn3.textContent = "3. parenthesis";
-  btn3.setAttribute("id", "secondbtn3")
+  btn3.setAttribute("class", "optionbutton")
   let btn4 = document.createElement("button");
   btn4.textContent = "4. square brackets";
-  btn4.setAttribute("id", "secondbtn4")
-  divEl.appendChild(btn1);
-  divEl.appendChild(btn2);
-  divEl.appendChild(btn3);
-  divEl.appendChild(btn4);
+  btn4.setAttribute("class", "optionbutton")
+  optionsContainerEl.appendChild(btn1);
+  optionsContainerEl.appendChild(btn2);
+  optionsContainerEl.appendChild(btn3);
+  optionsContainerEl.appendChild(btn4);
+  divEl.appendChild(optionsContainerEl);
   let secondQuestion = document.getElementById("question-container");
   secondQuestion.appendChild(divEl);
   removeQuestionOne();
@@ -76,8 +112,6 @@ function questionTwo() {
   btn2.addEventListener('click', questionThree);
   btn3.addEventListener('click', questionThree);
   btn4.addEventListener('click', questionThree);
-
-
 }
 
 function removeQuestionOne() {
@@ -85,29 +119,35 @@ function removeQuestionOne() {
   one.remove();
 }
 
-function questionThree() {
+function questionThree(event) {
+  if (event.target.textContent === "2. curly brackets") {
+    score++
+  }
   let divEl = document.createElement("div");
   divEl.setAttribute("id", "question-three");
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "headingquestion-3");
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "Arrays in JavaScript can be used to store"
   divEl.appendChild(h1El);
+  let optionsContainerEl = document.createElement("div");
+  optionsContainerEl.setAttribute("id", "buttonlist-1");
   let btn1 = document.createElement("button");
   btn1.textContent = "1. numbers and strings";
-  btn1.setAttribute("class", "thirdbtn1")
+  btn1.setAttribute("class", "optionbutton")
   let btn2 = document.createElement("button");
   btn2.textContent = "2. other arrays";
-  btn2.setAttribute("class", "thirdbtn2")
+  btn2.setAttribute("class", "optionbutton")
   let btn3 = document.createElement("button");
   btn3.textContent = "3. booleans";
-  btn3.setAttribute("class", "thirdbtn3")
+  btn3.setAttribute("class", "optionbutton")
   let btn4 = document.createElement("button");
   btn4.textContent = "4. all of the above";
-  btn4.setAttribute("class", "thirdbtn4")
-  divEl.appendChild(btn1);
-  divEl.appendChild(btn2);
-  divEl.appendChild(btn3);
-  divEl.appendChild(btn4);
+  btn4.setAttribute("class", "optionbutton")
+  optionsContainerEl.appendChild(btn1);
+  optionsContainerEl.appendChild(btn2);
+  optionsContainerEl.appendChild(btn3);
+  optionsContainerEl.appendChild(btn4);
+  divEl.appendChild(optionsContainerEl);
   let thirdQuestion = document.getElementById("question-container");
   thirdQuestion.appendChild(divEl);
   removeQuestionTwo();
@@ -122,29 +162,35 @@ function removeQuestionTwo() {
   two.remove();
 }
 
-function questionFour() {
+function questionFour(event) {
+  if (event.target.textContent === "4. all of the above") {
+    score++
+  }
   let divEl = document.createElement("div");
   divEl.setAttribute("id", "question-four")
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "headingquestion-4");
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "String values must be enclosed within ______ when being assigned to variables"
   divEl.appendChild(h1El);
+  let optionsContainerEl = document.createElement("div");
+  optionsContainerEl.setAttribute("id", "buttonlist-1");
   let btn1 = document.createElement("button");
   btn1.textContent = "1. commas";
-  btn1.setAttribute("id", "fourthbtn1")
+  btn1.setAttribute("class", "optionbutton")
   let btn2 = document.createElement("button");
   btn2.textContent = "2. curly brackets";
-  btn2.setAttribute("id", "fourthbtn2")
+  btn2.setAttribute("class", "optionbutton")
   let btn3 = document.createElement("button");
   btn3.textContent = "3. quotes";
-  btn3.setAttribute("id", "fourthbtn3")
+  btn3.setAttribute("class", "optionbutton")
   let btn4 = document.createElement("button");
   btn4.textContent = "4. parenthesis";
-  btn4.setAttribute("id", "fourthbtn4")
-  divEl.appendChild(btn1);
-  divEl.appendChild(btn2);
-  divEl.appendChild(btn3);
-  divEl.appendChild(btn4);
+  btn4.setAttribute("class", "optionbutton")
+  optionsContainerEl.appendChild(btn1);
+  optionsContainerEl.appendChild(btn2);
+  optionsContainerEl.appendChild(btn3);
+  optionsContainerEl.appendChild(btn4);
+  divEl.appendChild(optionsContainerEl);
   let fourthQuestion = document.getElementById("question-container");
   fourthQuestion.appendChild(divEl);
   removeQuestionThree();
@@ -161,29 +207,35 @@ function removeQuestionThree() {
   three.remove();
 }
 
-function questionFive() {
+function questionFive(event) {
+  if (event.target.textContent === "3. quotes") {
+    score++
+  }
   let divEL = document.createElement("div");
   divEL.setAttribute("id", "question-five");
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "headingquestion-5");
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "A very useful tool used during development and debugging for printing content to the debugger is";
   divEL.appendChild(h1El);
+  let optionsContainerEl = document.createElement("div");
+  optionsContainerEl.setAttribute("id", "buttonlist-1");
   let btn1 = document.createElement("button");
   btn1.textContent = "1. JavaScript";
-  btn1.setAttribute("class", "fifthbtn1")
+  btn1.setAttribute("class", "optionbutton")
   let btn2 = document.createElement("button");
   btn2.textContent = "2. terminal/bash";
-  btn2.setAttribute("class", "fifthbtn2")
+  btn2.setAttribute("class", "optionbutton")
   let btn3 = document.createElement("button");
   btn3.textContent = "3. for loops";
-  btn3.setAttribute("class", "fifthbtn3")
+  btn3.setAttribute("class", "optionbutton")
   let btn4 = document.createElement("button");
   btn4.textContent = "4. console.log";
-  btn4.setAttribute("class", "fifthbtn4")
-  divEL.appendChild(btn1);
-  divEL.appendChild(btn2);
-  divEL.appendChild(btn3);
-  divEL.appendChild(btn4);
+  btn4.setAttribute("class", "optionbutton")
+  optionsContainerEl.appendChild(btn1);
+  optionsContainerEl.appendChild(btn2);
+  optionsContainerEl.appendChild(btn3);
+  optionsContainerEl.appendChild(btn4);
+  divEL.appendChild(optionsContainerEl);
   btn1.addEventListener("click", allDone);
   btn2.addEventListener("click", allDone);
   btn3.addEventListener("click", allDone);
@@ -200,11 +252,14 @@ function removeQuestionFour() {
 
 }
 
-function allDone() {
+function allDone(event) {
+  if (event.target.textContent === "4. console.log") {
+    score++
+  }
   let divEl = document.createElement("div");
   divEl.setAttribute("id", "done");
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "alldonequestion");
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "All done!";
   divEl.appendChild(h1El);
   let textEl = document.createElement("p");
@@ -214,7 +269,7 @@ function allDone() {
   let inputEl = document.createElement("input");
   let btn = document.createElement("button");
   btn.textContent = "submit";
-  btn.setAttribute("id", "btnalldone");
+  btn.setAttribute("class", "optionbutton");
   divEl.appendChild(textEl);
   divEl.appendChild(secondTextEl);
   divEl.appendChild(inputEl);
@@ -231,30 +286,53 @@ function removeQuestionFive() {
 }
 
 function highScore() {
+  let initialsInput = document.querySelector("input").value;
   let divEl = document.createElement("div");
+  divEl.setAttribute("id", "highscore")
   let h1El = document.createElement("h1");
-  h1El.setAttribute("id", "highscorequestion");
+  h1El.setAttribute("class", "headingquestion");
   h1El.textContent = "High Scores";
   divEl.appendChild(h1El);
-  let inputEl = document.createElement("input");
+  highScores.push(initialsInput + ' - ' + score);
+  let olEl = document.createElement("ol");
+  for (let i = 0; i < highScores.length; i++) {
+    let liEl = document.createElement("li");
+    liEl.textContent = highScores[i];
+    olEl.appendChild(liEl);
+  }
   let btn1 = document.createElement("button");
   btn1.textContent = "Go back";
-  btn1.setAttribute("class", "btnback");
+  btn1.setAttribute("class", "optionbutton");
   let btn2 = document.createElement("button");
   btn2.textContent = "Clear high scores";
-  btn2.setAttribute("class", "btnscore");
-  divEl.appendChild(inputEl);
+  btn2.setAttribute("class", "optionbutton");
+  divEl.appendChild(olEl);
   divEl.appendChild(btn1);
   divEl.appendChild(btn2);
   let questionContainerScore = document.getElementById("question-container");
   questionContainerScore.appendChild(divEl);
   removeAllDone();
+  btn1.addEventListener('click', restart);
 }
+
+
 
 function removeAllDone() {
   let allDonePage = document.getElementById("done");
   allDonePage.remove();
 }
 
+function removeHighScore() {
+  let highScorePage = document.getElementById("highscore");
+  highScorePage.remove();
+}
+
+function restart() {
+  removeHighScore();
+  let startPage = document.querySelector(".hide-landing-page");
+  startPage.setAttribute("class", "container");
+
+}
 
 startButton.addEventListener('click', startQuiz);
+
